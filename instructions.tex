@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{url}
+\usepackage{color}
+\usepackage[text={6.5in,8.0in}, top=1.0in, bottom=1.5in] {geometry}
+\renewcommand{\ttdefault}{cmtt}
+
+\title{Git Workflow for CheckMATE}
+%\author{Nishita Desai}
+\date{}
+
+
+\begin{document}
+%\maketitle
+
+\vskip -2in
+\begin{center}
+\LARGE{\bf Git Workflow for CheckMATE}\\
+\end{center}
+
+\section{Setting up}
+
+\begin{enumerate}
+\item Clone the beta repository to your machine.\\
+\texttt{git clone -b beta https://github.com/CheckMATE2/checkmate2}
+\item This should create a checkmate2 directory on your machine
+\item Create your own branch \\
+\texttt{cd checkmate2} \\
+\texttt{git checkout -B branch\_name} \\ 
+{\color{red} \textsc{Do not forget to checkout otherwise you are still working in the main beta directory.} }You can always find out what branch you are in by typing \texttt{git branch}.  Use \texttt{git checkout} to switch between branches.
+\item Commit and push your branch without making ``real" changes so the whole tree knows about it. Change the README.md to add a comment of what the new branch is going to do. \\
+\texttt{git commit -a -m "New branch to do X" }\\
+\texttt{git push} \\
+Note: If you skip the \texttt{-m ".."}, you will be taken to a file in vi editor to give multi-line comments.  Useful if there are multiple changes that you want to explain.
+\item You can now continue to work in this directory and commit as and when you need (for private forked copy, see next section).  You need to add changes before every commit (this is done by the shortcut ``-a").  Also note you can selectively add the files to want to commit by saying \texttt{git add <all files you want>} and skipping the ``-a" in the commit. 
+\item Do not push if you don't want to make your changes public.  Your local git will still provide version control (i.e.\,you can revert if you make a mistake). Whenever you want the whole tree to know about your changes, push.
+\item When you're ready to release your code as beta, first make sure all changes are committed in your working branch.  Then,\\
+\texttt{git checkout beta} \\
+\texttt{git merge branch\_name} \\
+\texttt{git commit -a -m "Merged branch to do X"} \\
+\texttt{git push} \\
+\end{enumerate}
+
+\section{Setting up your private analysis using a forked copy}
+\begin{enumerate}
+\item If you want to keep your analysis private (e.g.\,if you have a paid account) or just work on it separate from the main tree.
+Go to \url{https://github.com/CheckMATE2/checkmate2/branches} and find your branch and click fork.
+\item Go to your account, find the repository name (which will just be the branch\_name)
+\item Download your forked version on your computer \\
+\texttt{git clone https://github.com/username/branch\_name}
+\item You can commit and push as you need.  It will be stored in your own account and not in the main tree.
+\item Once you're happy with what you have, go to your online branch in your account and click ``New Pull Request".  Choose where to merge ({\color{red}usually the head beta directory, \textsc{Never the master!}})
+\item Go to \texttt{CheckMATE2/checkmate2}, view the pull request and click merge
+\end{enumerate}
+
+\section{Making a public version}
+
+\begin{enumerate}
+\item We do not make a public version till everyone agrees.
+\item Eventually, this corresponds to going to the master branch and merging with the beta using \texttt{git merge} 
+\end{enumerate}
+
+\end{document}
